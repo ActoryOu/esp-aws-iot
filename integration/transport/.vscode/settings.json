@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "transport_interface_test_routine.h": "c",
+        "transport_test_config.h": "c"
+    }
+}

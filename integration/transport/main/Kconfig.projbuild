@@ -1,0 +1,31 @@
+menu "Transport Layer Test Configuration"
+
+config ECHO_SERVER_HOSTNAME
+    string "The echo server's hostname"
+	default "localhost"
+	help
+        The hostname of echo server executed by your computer or EC2.
+        Please make sure that the echo server is able to be connected for ESP32.
+
+config ECHO_SERVER_PORT
+    int "Port of the echo server use"
+    default 9000
+    help
+        In FIT(FreeRTOS Integration Toolkits), port 9000 is used by default for echo server.
+
+config ECHO_SERVER_OPTION_DISABLE_SNI
+    int "An option to disable Server Name Indication"
+    range 0 1
+    default 0
+    help
+        When using a local echo server setup, SNI needs to be disabled
+        that only has an IP address but no hostname. However,
+        SNI should be enabled whenever possible.
+
+config HARDWARE_PLATFORM_NAME
+    string "The hardware platform"
+    default "ESP32"
+    help
+        The name of the hardware platform the application is running on.
+
+endmenu
