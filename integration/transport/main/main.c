@@ -11,9 +11,8 @@
 #include "tls_freertos.h"
 #include "protocol_examples_common.h"
 
-#include "transport_interface.h"
-#include "transport_interface_test_routine.h"
 #include "transport_test_config.h"
+#include "transport_interface_tests.h"
 
 #if transportTestIS_ESP32
     #define transportTestLog(...) ESP_LOGI(TAG, __VA_ARGS__)
@@ -80,7 +79,7 @@ static const char *TAG = "transportTest";
  */
 #define TRANSPORT_SEND_RECV_TIMEOUT_MS      ( 1000 )
 
-void TransportConnectHook( TransportInterface_t * pTransport )
+void TransportInit( TransportInterface_t * pTransport )
 {
     ServerInfo_t serverInfo;
     const char hostName[] = transportTestECHO_SERVER_HOSTNAME;
@@ -120,9 +119,15 @@ void TransportConnectHook( TransportInterface_t * pTransport )
     }
 }
 
-void TransportDisconnectHook( TransportInterface_t * pTransport )
+void TransportDeinit( TransportInterface_t * pTransport )
 {
     TLS_FreeRTOS_Disconnect( pTransport->pNetworkContext );
+}
+
+void TransportTestDelay( uint32_t delayMs )
+{
+	const TickType_t xDelay = delayMs / portTICK_PERIOD_MS;
+	vTaskDelay( xDelay );
 }
 
 int8_t setSocketOperationHandler()
@@ -179,6 +184,6 @@ int main( int argc, char** argv )
     xTransport.send = TLS_FreeRTOS_send;
     xTransport.recv = TLS_FreeRTOS_recv;
     
-    TransportInterfaceTestRoutine( &xTransport );
+    RunTransportInterfaceTests( &xTransport );
     return 0;
 }

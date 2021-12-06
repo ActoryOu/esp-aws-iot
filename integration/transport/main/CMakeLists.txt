@@ -8,7 +8,7 @@ include( ${PROJECT_DIR}/../../port/portFilePaths.cmake )
 
 set(COMPONENT_SRCS
 	"main.c"
-	"transport_interface_test_routine.c"
+	"transport_interface_tests.c"
 	"${MQTT_SOURCES}"
 	"${MQTT_SERIALIZER_SOURCES}"
 	"${BACKOFF_ALGORITHM_SOURCES}"
@@ -17,7 +17,6 @@ set(COMPONENT_SRCS
 
 set(COMPONENT_ADD_INCLUDEDIRS
 	"."
-	"./include"
 	"${MQTT_INCLUDE_PUBLIC_DIRS}"
 	"${BACKOFF_ALGORITHM_INCLUDE_PUBLIC_DIRS}"
 	"${CMAKE_CURRENT_LIST_DIR}"
